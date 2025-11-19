@@ -1,0 +1,93 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/data_ingestion.py
+    deps:
+    - path: src/data_ingestion.py
+      hash: md5
+      md5: ec5d5b8ac29fc4d2f61598c6a05861af
+      size: 2172
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: 4deec40660bb45d6f9f2bd75cc96ea77.dir
+      size: 396904
+      nfiles: 2
+    - path: label_encoder.pkl
+      hash: md5
+      md5: 1d29209b68c1744325147ba2a73cee04
+      size: 362
+  data_preprocessing:
+    cmd: python src/data_preprocessing.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: 4deec40660bb45d6f9f2bd75cc96ea77.dir
+      size: 396904
+      nfiles: 2
+    - path: src/data_preprocessing.py
+      hash: md5
+      md5: a5be134039d1f6e36ba6ef80b5960dae
+      size: 2399
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: 48491925cf4fd0e38885985d3862dc60.dir
+      size: 290511
+      nfiles: 2
+  feature_engineering:
+    cmd: python src/feature_engineering.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: 48491925cf4fd0e38885985d3862dc60.dir
+      size: 290511
+      nfiles: 2
+    - path: src/feature_engineering.py
+      hash: md5
+      md5: cc5e1d3d5f9c95b4ca6ece3a6f481cf7
+      size: 1185
+    outs:
+    - path: data/features
+      hash: md5
+      md5: 2a1fe6caa54d7e69509def84a218ebb5.dir
+      size: 167423146
+      nfiles: 2
+  model_building:
+    cmd: python src/model_building.py
+    deps:
+    - path: data/features
+      hash: md5
+      md5: 2a1fe6caa54d7e69509def84a218ebb5.dir
+      size: 167423146
+      nfiles: 2
+    - path: src/model_building.py
+      hash: md5
+      md5: 2107f354663e98248de21b5883cde37f
+      size: 448
+    outs:
+    - path: model.pkl
+      hash: md5
+      md5: 020502263578ee90309221ae8de580e8
+      size: 618698
+  model_evaluation:
+    cmd: python src/model_evaluation.py
+    deps:
+    - path: data/features
+      hash: md5
+      md5: 2a1fe6caa54d7e69509def84a218ebb5.dir
+      size: 167423146
+      nfiles: 2
+    - path: label_encoder.pkl
+      hash: md5
+      md5: 1d29209b68c1744325147ba2a73cee04
+      size: 362
+    - path: model.pkl
+      hash: md5
+      md5: 020502263578ee90309221ae8de580e8
+      size: 618698
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: 5655759ed8270ad4f3d9488477a51403
+      size: 119
