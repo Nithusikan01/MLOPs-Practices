@@ -1,2 +1,5 @@
 .env
 dvc_env
+data
+label_encoder.pkl
+model.pkl
