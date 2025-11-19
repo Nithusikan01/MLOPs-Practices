@@ -17,7 +17,7 @@ git init
 
 dvc init
 
-dvc repo
+dvc repro
 
 dvc dag
 
