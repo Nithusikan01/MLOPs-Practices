@@ -9,7 +9,7 @@ from sklearn.preprocessing import LabelEncoder
 def load_data(data_url: str) -> pd.DataFrame:
     try:
         df = pd.read_csv(data_url)
-        return df
+        return df[0:5000]
     except pd.errors.ParserError as e:
         print(f"Error: Failed to parse the CSV file from {data_url}.")
         print(e)
@@ -24,7 +24,7 @@ def preprocess_data(df: pd.DataFrame,) -> pd.DataFrame:
     try:
         le = LabelEncoder()
         df['encoded_sentiment'] = le.fit_transform(df['sentiment'])
-        final_df = df.drop(columns=['tweet_id', 'sentiment'], inplace=True)
+        final_df = df.drop(columns=['tweet_id', 'sentiment'])
 
         # Dump the label encoder
         pickle.dump(le, open("label_encoder.pkl", "wb"))  
