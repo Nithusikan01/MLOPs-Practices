@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ## 2. Necessary DVC Commands
 
 ```dvc
-git init
+git init (Run only if you haven't initialized git before in any way.)
 
 dvc init
 
