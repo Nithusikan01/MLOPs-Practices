@@ -22,7 +22,7 @@ import dagshub
 dagshub.init(repo_owner='tnithusikan', repo_name='MLOPs-Practices', mlflow=True)
 
 # Initializer logger and log events
-logging.basicConfig(level=logging.WARN)
+logging.basicConfig(level=logging.WARN) 
 logger = logging.getLogger(__name__)
 
 def metrics(y_true, y_pred):
